@@ -18,3 +18,5 @@ videos %>% filter(watch_rate >= 0.8) %>% nrow()
 #Show only video_id, creator_id, watch_rate
 videos %>% select(video_id, creator_id, watch_rate)
 
+#needed to change something
+
