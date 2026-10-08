@@ -1,0 +1,99 @@
+---
+title: "tutorial2"
+output: html_document
+date: "2026-10-08"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# First title
+## Sub title
+I know how markdown works, I just want to test the PDF thing.
+
+```{r}
+library(tidyverse)
+videos <- read.csv("video_view.csv")
+```
+
+```{r}
+getwd()
+list.files()
+```
+# Actual programming stuff
+Let's first inspect the data
+```{r}
+library(dplyr)
+head(videos)
+glimpse(videos)
+names(videos)
+```
+Extra practice tutorial 1
+```{r}
+creators <- videos %>% summarize(
+  impressions_total = sum(impressions_n, na.rm = TRUE),
+  avg_watch_rate = mean(watch_rate, na.rm = TRUE),
+  .by = creator_id
+)
+creators <- creators %>% arrange(desc(impressions_total))
+```
+
+Okay nu weer verder met tutorial 2
+
+Which videos are both high quality and reasonably visible?
+Predict first: If we require watch_rate >= 0.7 and impressions_n >= 20, do we keep many or few
+rows?
+
+```{r}
+best_videos <- videos %>% select(video_id, creator_id, watch_rate, impressions_n) %>% filter(watch_rate >= 0.7 & impressions_n >= 20)
+
+nrow(videos)
+nrow(best_videos)
+nrow(best_videosnrow(videos) - nrow(best_videos)
+```
+Question:
+How can we create and rank a simple video performance score?
+Predict first:
+Will watched_n / impressions_n likely be close to watch_rate?
+Plan:
+1. create new variable watched_share
+2. rename long variable names for readability
+3. sort descending to see top rows first
+```{r}
+videos %>% summarise( total_impressions = sum(impressions_n, na.rm = TRUE), avg_watch_rate = mean(watch_rate, na.rm = TRUE), n_videos = n())
+```
+Create object top_watch, that contains the following information: the video id, creator id, watch
+rate, and at least 50 impressions per video. Arrange your answer by having watch rate, descending
+```{r}
+top_watch <- videos %>% mutate(watch_rate_new = watched_n/impressions_n) %>% filter(impressions_n > 50) %>% 
+  select(video_id, creator_id, watch_rate) %>% arrange(desc(watch_rate))
+```
+
+Extra practice questions
+1. Count videos with watch_rate >= 0.8.
+3. Find creators with at least 3 videos and sort by total impressions.
+4. Create a short interpretation paragraph (3 lines) for your creator_summary.
+5. Add a section to README called “Troubleshooting” with 3 common errors.
+6. Render your Quarto file again after one small text edit and verify output updates
+
+```{r}
+high_watch_rate <- videos %>% filter(watch_rate >= 0.8)
+nrow(high_watch_rate)
+```
+```{r}
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
