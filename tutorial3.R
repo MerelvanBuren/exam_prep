@@ -30,9 +30,23 @@ nicer2 <- ggplot(data = videos,
   geom_point(color = "slateblue")
   nicer2
 
-# Alright but let's actually start some stuff
-  
-  
+# Some extra plots to see what happens
+ videos_plot <- videos %>%
+    mutate(
+      visibility_band = case_when(
+        impressions_n < 20 ~ "Low visibility",
+        impressions_n < 60 ~ "Medium visibility",
+        TRUE ~ "High visibility"))
+ ggplot(videos_plot, aes(impressions_n, watch_rate, color = visibility_band)) +
+   geom_point(alpha = 0.7, size = 2) +
+   labs(
+     title = "Video quality vs reach",
+     x = "Impressions",
+     y = "Watch rate",
+     color = "Visibility"
+   ) +
+   theme_minimal()
+  videos_plot
   
   
   
