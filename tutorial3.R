@@ -48,22 +48,17 @@ nicer2 <- ggplot(data = videos,
    theme_minimal()
   videos_plot
   
+#extra exercises
+#Create a histogram of watch_rate
+watch_rate_histogram <- ggplot(videos, aes(watch_rate))+
+  labs(title = "Histogram of Watch Rate") +
+  geom_histogram(bins = 20, colour = "lavender", fill = "lavender")+
+  theme_minimal()
+
+watch_rate_histogram  
   
   
   
   
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
